@@ -1,0 +1,25 @@
+
+name: Build Tiket Bus EXE
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Compile C++
+        run: |
+          g++ -std=c++17 -O2 -static -static-libgcc -static-libstdc++ main.cpp -o tiket-bus.exe
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: tiket-bus-exe
+          path: tiket-bus.exe
